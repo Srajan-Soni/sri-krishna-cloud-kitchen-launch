@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Menu } from "lucide-react";
-import logoAsset from "@/assets/sri-krishna-logo.png.asset.json";
+import logoAsset from "@/assets/sri-krishna-mark.png.asset.json";
 import { NAV_LINKS } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";

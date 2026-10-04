@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Instagram } from "lucide-react";
-import logoAsset from "@/assets/sri-krishna-logo.png.asset.json";
+import logoAsset from "@/assets/sri-krishna-mark.png.asset.json";
 import { NAV_LINKS, SITE_CONFIG } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import { useOrderDialog } from "./order-dialog";
