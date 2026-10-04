@@ -1,8 +1,7 @@
-import { createContext, useContext, useMemo, useState, type ReactNode } from "react";
-import { ExternalLink, ShoppingBag } from "lucide-react";
+import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { ExternalLink, ShoppingBag, X } from "lucide-react";
 import { SITE_CONFIG } from "@/config/site";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 type OrderDialogContextValue = { openOrderDialog: (itemName?: string) => void };
 const OrderDialogContext = createContext<OrderDialogContextValue | undefined>(undefined);
@@ -10,24 +9,44 @@ const OrderDialogContext = createContext<OrderDialogContextValue | undefined>(un
 export function OrderDialogProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
   const [itemName, setItemName] = useState<string>();
+  const panelRef = useRef<HTMLDivElement>(null);
   const value = useMemo(() => ({ openOrderDialog: (name?: string) => { setItemName(name); setOpen(true); } }), []);
+
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : undefined;
+    document.body.style.overflow = "hidden";
+    panelRef.current?.focus();
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+      previouslyFocused?.focus();
+    };
+  }, [open]);
+
   return (
     <OrderDialogContext.Provider value={value}>
       {children}
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-[calc(100%-2rem)] rounded-sm border-border bg-background p-7 sm:max-w-md">
-          <DialogHeader className="text-left">
+      {open && <div className="fixed inset-0 z-50 grid place-items-center bg-foreground/70 p-4" onMouseDown={(event) => { if (event.currentTarget === event.target) setOpen(false); }}>
+        <div ref={panelRef} role="dialog" aria-modal="true" aria-labelledby="order-dialog-title" aria-describedby="order-dialog-description" tabIndex={-1} className="relative w-full max-w-md rounded-sm border border-border bg-background p-7 shadow-2xl outline-none">
+          <Button variant="ghost" size="icon" className="absolute right-3 top-3" onClick={() => setOpen(false)} aria-label="Close order options"><X /></Button>
+          <div className="text-left">
             <div className="mb-3 flex size-11 items-center justify-center rounded-full bg-secondary text-primary"><ShoppingBag aria-hidden="true" /></div>
-            <DialogTitle className="font-display text-3xl font-medium">Choose where to order</DialogTitle>
-            <DialogDescription className="leading-6">{itemName ? `Order ${itemName} from our delivery partner.` : "Continue to our restaurant page on a delivery partner."}</DialogDescription>
-          </DialogHeader>
+            <h2 id="order-dialog-title" className="font-display text-3xl font-medium text-primary">Choose where to order</h2>
+            <p id="order-dialog-description" className="mt-2 text-sm leading-6 text-muted-foreground">{itemName ? `Order ${itemName} from our delivery partner.` : "Continue to our restaurant page on a delivery partner."}</p>
+          </div>
           <div className="grid gap-3 pt-2">
             <OrderDestination label="Order on Zomato" url={SITE_CONFIG.zomatoUrl} />
             <OrderDestination label="Order on Swiggy" url={SITE_CONFIG.swiggyUrl} />
           </div>
           {!SITE_CONFIG.zomatoUrl && !SITE_CONFIG.swiggyUrl && <p className="text-xs leading-5 text-muted-foreground">Online ordering links are being added. Please call us to order in the meantime.</p>}
-        </DialogContent>
-      </Dialog>
+        </div>
+      </div>}
     </OrderDialogContext.Provider>
   );
 }
