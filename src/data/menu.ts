@@ -8,7 +8,7 @@ import pooriImage from "@/assets/poori-sabzi.jpg";
 import friedRiceImage from "@/assets/fried-rice.jpg";
 
 export type MenuCategory = "Breakfast" | "Roti & Combos" | "Paratha" | "Maggi" | "Main Course" | "Khichdi" | "Poori & Sabzi" | "Rice & Fried Rice" | "Vrat / Fasting";
-export type MenuVariant = { name: string; price: number };
+export type MenuVariant = { name: string; price?: number };
 export type MenuItem = {
   id: string;
   name: string;
