@@ -1,16 +1,17 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { ExternalLink, ShoppingBag, X } from "lucide-react";
 import { SITE_CONFIG } from "@/config/site";
+import { MENU_ORDER_LINKS, type MenuItem } from "@/data/menu";
 import { Button } from "@/components/ui/button";
 
-type OrderDialogContextValue = { openOrderDialog: (itemName?: string) => void };
+type OrderDialogContextValue = { openOrderDialog: (item?: MenuItem) => void };
 const OrderDialogContext = createContext<OrderDialogContextValue | undefined>(undefined);
 
 export function OrderDialogProvider({ children }: { children: ReactNode }) {
   const [open, setOpen] = useState(false);
-  const [itemName, setItemName] = useState<string>();
+  const [item, setItem] = useState<MenuItem>();
   const panelRef = useRef<HTMLDivElement>(null);
-  const value = useMemo(() => ({ openOrderDialog: (name?: string) => { setItemName(name); setOpen(true); } }), []);
+  const value = useMemo(() => ({ openOrderDialog: (nextItem?: MenuItem) => { setItem(nextItem); setOpen(true); } }), []);
 
   useEffect(() => {
     if (!open) return;
@@ -38,21 +39,21 @@ export function OrderDialogProvider({ children }: { children: ReactNode }) {
           <div className="text-left">
             <div className="mb-3 flex size-11 items-center justify-center rounded-full bg-secondary text-primary"><ShoppingBag aria-hidden="true" /></div>
             <h2 id="order-dialog-title" className="font-display text-3xl font-medium text-primary">Choose where to order</h2>
-            <p id="order-dialog-description" className="mt-2 text-sm leading-6 text-muted-foreground">{itemName ? `Order ${itemName} from our delivery partner.` : "Continue to our restaurant page on a delivery partner."}</p>
+            <p id="order-dialog-description" className="mt-2 text-sm leading-6 text-muted-foreground">{item ? `Order ${item.name} from your preferred delivery partner.` : "Continue to our restaurant page on a delivery partner."}</p>
           </div>
           <div className="grid gap-3 pt-2">
-            <OrderDestination label="Order on Zomato" url={SITE_CONFIG.zomatoUrl} />
-            <OrderDestination label="Order on Swiggy" url={SITE_CONFIG.swiggyUrl} />
+            <OrderDestination label="Order on Zomato" url={item ? MENU_ORDER_LINKS[item.id]?.zomato : SITE_CONFIG.zomatoUrl} />
+            <OrderDestination label="Order on Swiggy" url={item ? MENU_ORDER_LINKS[item.id]?.swiggy : SITE_CONFIG.swiggyUrl} />
           </div>
-          {!SITE_CONFIG.zomatoUrl && !SITE_CONFIG.swiggyUrl && <p className="text-xs leading-5 text-muted-foreground">Online ordering links are being added. Please call us to order in the meantime.</p>}
+          {(!item && !SITE_CONFIG.zomatoUrl && !SITE_CONFIG.swiggyUrl) || (item && !MENU_ORDER_LINKS[item.id]?.zomato && !MENU_ORDER_LINKS[item.id]?.swiggy) ? <p className="text-xs leading-5 text-muted-foreground">Dish-specific ordering links are being added. Please call us to order in the meantime.</p> : null}
         </div>
       </div>}
     </OrderDialogContext.Provider>
   );
 }
 
-function OrderDestination({ label, url }: { label: string; url: string }) {
-  return url ? <Button asChild size="lg" className="h-12 justify-between rounded-sm"><a href={url} target="_blank" rel="noopener noreferrer">{label}<ExternalLink aria-hidden="true" /></a></Button> : <Button size="lg" className="h-12 justify-between rounded-sm" disabled>{label}<span className="text-xs font-normal">Coming soon</span></Button>;
+function OrderDestination({ label, url }: { label: string; url?: string }) {
+  return url ? <Button asChild size="lg" className="h-12 justify-between rounded-sm"><a href={url} target="_blank" rel="noopener noreferrer">{label}<ExternalLink aria-hidden="true" /></a></Button> : <Button size="lg" className="h-12 justify-between rounded-sm" disabled>{label}<span className="text-xs font-normal">Link needed</span></Button>;
 }
 
 export function useOrderDialog() {
