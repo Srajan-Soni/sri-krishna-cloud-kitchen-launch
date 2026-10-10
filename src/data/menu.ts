@@ -8,6 +8,7 @@ import pooriImage from "@/assets/poori-sabzi.jpg";
 import friedRiceImage from "@/assets/fried-rice.jpg";
 
 export type MenuCategory = "Breakfast" | "Roti & Combos" | "Paratha" | "Maggi" | "Main Course" | "Khichdi" | "Poori & Sabzi" | "Rice & Fried Rice" | "Vrat / Fasting";
+export type OrderPlatform = "zomato" | "swiggy";
 export type MenuVariant = { name: string; price?: number };
 export type MenuItem = {
   id: string;
@@ -67,3 +68,5 @@ export const menuItems: MenuItem[] = [
   { id: "falahari-plate", name: "Falahari Plate", slug: "falahari-plate", category: "Vrat / Fasting", description: "A balanced selection of freshly prepared fasting favourites.", image: heroImage, available: true, tags: ["Vrat"], featured: false },
   { id: "sabudana-vada", name: "Sabudana Vada", slug: "sabudana-vada", category: "Vrat / Fasting", description: "Crisp outside, soft inside sabudana vada with a homestyle touch.", image: appeImage, available: true, tags: ["Vrat"], featured: false },
 ];
+
+export const MENU_ORDER_LINKS: Partial<Record<MenuItem["id"], Partial<Record<OrderPlatform, string>>>> = {};
