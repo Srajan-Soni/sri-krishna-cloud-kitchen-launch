@@ -18,7 +18,7 @@ const features = [
 ];
 function HomePage() {
   const { openOrderDialog } = useOrderDialog();
-  const popular = menuItems.filter((item) => ["poha", "appe", "matar-paneer"].includes(item.id));
+  const popular = menuItems.filter((item) => ["poori-sabzi", "aloo-paratha", "sev-tamatar", "matar-paneer", "veg-maggi"].includes(item.id));
   return <main id="main-content">
     <section className="site-container grid min-h-[calc(100svh-76px)] items-center gap-10 py-10 lg:min-h-[720px] lg:grid-cols-[1.05fr_.95fr] lg:py-14">
       <div className="relative z-10"><p className="eyebrow">Sri Krishna Cloud Kitchen</p><h1 className="mt-5 max-w-3xl font-display text-5xl font-medium leading-[.98] text-primary sm:text-6xl lg:text-[5.2rem]">Homemade Vegetarian Food, Made With Love</h1><p className="mt-6 flex items-center gap-2 text-base font-medium text-primary"><Leaf className="size-4 text-peacock" />Fresh • Homemade • Hygienic</p><p className="mt-3 flex items-center gap-2 text-sm text-muted-foreground"><MapPin className="size-4" />गढ़ा, जबलपुर</p><div className="mt-8 flex flex-wrap gap-3"><Button className="h-12 rounded-sm px-5" onClick={() => openOrderDialog()}>Order now <ArrowUpRight /></Button><Button asChild variant="outline" className="h-12 rounded-sm px-5"><Link to="/menu">Explore menu <ArrowRight /></Link></Button></div></div>
