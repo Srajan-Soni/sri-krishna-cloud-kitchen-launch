@@ -6,8 +6,8 @@ export const SITE_CONFIG = {
   phones: ["8103560228", "7828244431"],
   instagramHandle: "@srikrishna_cloud_kitchen_jbp",
   instagramUrl: "https://www.instagram.com/srikrishna_cloud_kitchen_jbp/",
-  zomatoUrl: "",
-  swiggyUrl: "",
+  zomatoUrl: "https://zomato.onelink.me/xqzv/4ltnea4b",
+  swiggyUrl: "https://www.swiggy.com/menu/1285822?source=sharing",
 } as const;
 
 export const NAV_LINKS = [

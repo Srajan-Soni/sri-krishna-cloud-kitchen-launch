@@ -5,13 +5,25 @@ import { NAV_LINKS } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useOrderDialog } from "./order-dialog";
+import skskLogo from "@/assets/skskLogo.png";
 
 export function SiteHeader() {
   const { openOrderDialog } = useOrderDialog();
   return <header className="sticky top-0 z-40 border-b border-border/70 bg-background/95 backdrop-blur">
     <div className="site-container grid h-[76px] grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:h-[88px]">
       <Link to="/" className="flex min-w-0 items-center gap-3" aria-label="Sri Krishna Cloud Kitchen home">
-        <img src={logoAsset.url} alt="" width={666} height={375} className="size-12 shrink-0 object-contain lg:size-14" />
+        <img
+          src={logoAsset.url || skskLogo}
+          alt="Sri Krishna Cloud Kitchen logo"
+          width={666}
+          height={375}
+          className="size-12 shrink-0 object-contain lg:size-14"
+          onError={(e) => {
+            const img = e.currentTarget;
+            img.onerror = null;
+            img.src = skskLogo;
+          }}
+        />
         <span className="min-w-0"><strong className="block truncate font-display text-xl font-medium text-primary lg:text-2xl">Sri Krishna</strong><span className="block text-[9px] uppercase tracking-[0.18em] text-muted-foreground">Cloud Kitchen</span></span>
       </Link>
       <div className="hidden items-center gap-9 lg:flex">
