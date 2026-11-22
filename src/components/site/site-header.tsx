@@ -1,11 +1,10 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Menu } from "lucide-react";
-import logoAsset from "@/assets/sri-krishna-mark.png.asset.json";
 import { NAV_LINKS } from "@/config/site";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { useOrderDialog } from "./order-dialog";
-import skskLogo from "@/assets/skskLogo.png";
+import skckLogo from "@/assets/skckLogo.png";
 
 export function SiteHeader() {
   const { openOrderDialog } = useOrderDialog();
@@ -13,16 +12,11 @@ export function SiteHeader() {
     <div className="site-container grid h-[76px] grid-cols-[minmax(0,1fr)_auto] items-center gap-4 lg:h-[88px]">
       <Link to="/" className="flex min-w-0 items-center gap-3" aria-label="Sri Krishna Cloud Kitchen home">
         <img
-          src={logoAsset.url || skskLogo}
+          src={skckLogo}
           alt="Sri Krishna Cloud Kitchen logo"
           width={666}
           height={375}
           className="size-12 shrink-0 object-contain lg:size-14"
-          onError={(e) => {
-            const img = e.currentTarget;
-            img.onerror = null;
-            img.src = skskLogo;
-          }}
         />
         <span className="min-w-0"><strong className="block truncate font-display text-xl font-medium text-primary lg:text-2xl">Sri Krishna</strong><span className="block text-[9px] uppercase tracking-[0.18em] text-muted-foreground">Cloud Kitchen</span></span>
       </Link>
@@ -35,7 +29,19 @@ export function SiteHeader() {
       <Sheet>
         <SheetTrigger asChild><Button variant="ghost" size="icon" className="size-11 lg:hidden" aria-label="Open menu"><Menu /></Button></SheetTrigger>
         <SheetContent className="w-[86%] border-border bg-background p-7">
-          <SheetHeader className="text-left"><SheetTitle className="font-display text-2xl">Sri Krishna</SheetTitle><SheetDescription>Fresh • Homemade • Vegetarian</SheetDescription></SheetHeader>
+          <SheetHeader className="text-left">
+            <div className="flex items-center gap-3">
+              <img
+                src={skckLogo}
+                alt="Sri Krishna Cloud Kitchen logo"
+                className="size-11 object-contain"
+              />
+              <div>
+                <SheetTitle className="font-display text-2xl">Sri Krishna</SheetTitle>
+                <SheetDescription>Fresh • Homemade • Vegetarian</SheetDescription>
+              </div>
+            </div>
+          </SheetHeader>
           <nav className="mt-10 grid gap-1" aria-label="Mobile navigation">
             {NAV_LINKS.map((item) => <SheetClose asChild key={item.to}><Link to={item.to} activeOptions={{ exact: item.to === "/" }} className="border-b border-border py-4 font-display text-2xl text-primary">{item.label}</Link></SheetClose>)}
           </nav>

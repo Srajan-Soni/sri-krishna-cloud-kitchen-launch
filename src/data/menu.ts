@@ -6,6 +6,11 @@ import parathaImage from "@/assets/paratha.jpg";
 import maggiImage from "@/assets/maggi.jpg";
 import pooriImage from "@/assets/poori-sabzi.jpg";
 import friedRiceImage from "@/assets/fried-rice.jpg";
+import alooTamatarImage from "@/assets/food items/aloo tamatar.png";
+import butterRotiImage from "@/assets/food items/butter_roti.png";
+import matarPaneerImage from "@/assets/food items/matar paneer.jpg";
+import plainRotiImage from "@/assets/food items/plain_roti.png";
+import sevTamatarImage from "@/assets/food items/sev tamatar.png";
 
 export type MenuCategory = "Breakfast" | "Roti & Combos" | "Paratha" | "Maggi" | "Main Course" | "Khichdi" | "Poori & Sabzi" | "Rice & Fried Rice" | "Vrat / Fasting";
 export type OrderPlatform = "zomato" | "swiggy";
@@ -32,9 +37,8 @@ export const menuItems: MenuItem[] = [
   { id: "upma", name: "Upma", slug: "upma", category: "Breakfast", description: "Wholesome homemade upma prepared with vegetables and aromatic spices.", image: heroImage, price: 49, available: true, availability: "8 AM – 12 PM", tags: ["Breakfast"], featured: true },
   { id: "appe", name: "Appe", slug: "appe", category: "Breakfast", description: "Soft and crispy appe served with chutney.", image: appeImage, price: 59, available: true, availability: "8 AM – 12 PM", tags: ["Breakfast", "Popular"], featured: true },
 
-  { id: "plain-roti", name: "Plain Roti", slug: "plain-roti", category: "Roti & Combos", description: "Fresh, soft tawa roti made for a wholesome everyday meal.", image: heroImage, price: 8, available: true, tags: ["Roti"], featured: false },
-  { id: "butter-roti", name: "Butter Tawa Roti", slug: "butter-tawa-roti", category: "Roti & Combos", description: "Soft tawa roti finished with a touch of butter.", image: heroImage, price: 10, available: true, tags: ["Roti"], featured: false },
-  { id: "roti-aloo-combo", name: "4 Roti + Aloo Gravy Combo", slug: "4-roti-aloo-gravy-combo", category: "Roti & Combos", description: "Ghar jaisi soft rotis paired with flavorful desi aloo gravy — simple, satisfying aur bilkul desi!", image: heroImage, available: true, tags: ["Combo", "Popular"], featured: true },
+  { id: "plain-roti", name: "Plain Roti", slug: "plain-roti", category: "Roti & Combos", description: "Fresh, soft tawa roti made for a wholesome everyday meal.", image: plainRotiImage, price: 8, available: true, tags: ["Roti"], featured: false },
+  { id: "butter-roti", name: "Butter Tawa Roti", slug: "butter-tawa-roti", category: "Roti & Combos", description: "Soft tawa roti finished with a touch of butter.", image: butterRotiImage, price: 10, available: true, tags: ["Roti"], featured: false },
 
   { id: "aloo-paratha", name: "Aloo Paratha", slug: "aloo-paratha", category: "Paratha", description: "Soft whole wheat paratha stuffed with spiced mashed potatoes, served with curd and pickle.", image: parathaImage, available: true, tags: ["Paratha", "Popular"], featured: true },
   { id: "aloo-pyaaz-paratha", name: "Aloo Pyaaz Paratha", slug: "aloo-pyaaz-paratha", category: "Paratha", description: "Classic stuffed paratha with a spiced potato and onion filling, cooked on the tawa.", image: parathaImage, available: true, tags: ["Paratha"], featured: false },
@@ -50,11 +54,11 @@ export const menuItems: MenuItem[] = [
   { id: "schezwan-paneer-maggi", name: "Schezwan Cheese Paneer Maggi", slug: "schezwan-cheese-paneer-maggi", category: "Maggi", description: "Bold schezwan noodles with soft paneer cubes and melted cheese.", image: maggiImage, available: true, tags: ["Maggi", "Spicy", "Cheese"], featured: false },
   { id: "viral-cheesy-maggi", name: "Viral Cheesy Maggi", slug: "viral-cheesy-maggi", category: "Maggi", description: "The internet-famous extra-cheesy maggie, made fresh in our kitchen.", image: maggiImage, available: true, tags: ["Maggi", "Cheese", "Trending"], featured: false },
 
-  { id: "sev-tamatar", name: "Sev Tamatar", slug: "sev-tamatar", category: "Main Course", description: "Tangy tomato gravy with crispy sev and desi spices.", image: paneerImage, available: true, tags: ["Homestyle", "Popular"], featured: true },
+  { id: "sev-tamatar", name: "Sev Tamatar", slug: "sev-tamatar", category: "Main Course", description: "Tangy tomato gravy with crispy sev and desi spices.", image: sevTamatarImage, available: true, tags: ["Homestyle", "Popular"], featured: true },
   { id: "jeera-aloo", name: "Jeera Aloo", slug: "jeera-aloo", category: "Main Course", description: "Homestyle potatoes tempered with cumin and Indian spices.", image: heroImage, available: true, tags: ["Homestyle"], featured: true },
-  { id: "aloo-tamatar", name: "Aloo Tamatar Gravy", slug: "aloo-tamatar-gravy", category: "Main Course", description: "Comforting potato and tomato curry prepared with flavorful Indian spices.", image: heroImage, available: true, tags: ["Comfort food"], featured: true },
-  { id: "matar-paneer", name: "Matar Paneer", slug: "matar-paneer", category: "Main Course", description: "Soft paneer and green peas cooked in a rich, flavorful tomato gravy.", image: paneerImage, available: true, tags: ["Paneer", "Popular"], featured: true },
-  { id: "butter-paneer", name: "Butter Paneer Masala", slug: "butter-paneer-masala", category: "Main Course", description: "Soft paneer cooked in a creamy, buttery tomato masala with rich Indian flavours.", image: heroImage, available: true, tags: ["Paneer", "Popular"], featured: true },
+  { id: "aloo-tamatar", name: "Aloo Tamatar Gravy", slug: "aloo-tamatar-gravy", category: "Main Course", description: "Comforting potato and tomato curry prepared with flavorful Indian spices.", image: alooTamatarImage, available: true, tags: ["Comfort food"], featured: true },
+  { id: "matar-paneer", name: "Matar Paneer", slug: "matar-paneer", category: "Main Course", description: "Soft paneer and green peas cooked in a rich, flavorful tomato gravy.", image: matarPaneerImage, available: true, tags: ["Paneer", "Popular"], featured: true },
+  { id: "butter-paneer", name: "Butter Paneer Masala", slug: "butter-paneer-masala", category: "Main Course", description: "Soft paneer cooked in a creamy, buttery tomato masala with rich Indian flavours.", image: paneerImage, available: true, tags: ["Paneer", "Popular"], featured: true },
 
   { id: "masala-khichdi", name: "Homestyle Masala Khichdi", slug: "homestyle-masala-khichdi", category: "Khichdi", description: "Comforting, gently spiced khichdi made in a homestyle tadka.", image: heroImage, variants: [{ name: "Half", price: 69 }, { name: "Full", price: 119 }], available: true, tags: ["Comfort food"], featured: true },
 
